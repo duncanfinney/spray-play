@@ -1,0 +1,23 @@
+---
+- hosts: all
+  gather_facts: yes
+
+  vars:
+    app_jar_location: "/home/vagrant/spray-play-assembly-0.1.jar"
+
+  pre_tasks:
+    - name: update cache if needed
+      apt: update_cache=yes cache_valid_time=3600
+
+  tasks:
+    - name: Ensure java is installed
+      apt: name=openjdk-7-jdk state=present
+
+    - name: Copy app over to server
+      copy: src=../target/scala-2.11/spray-play-assembly-0.1.jar dest="{{ app_jar_location }}"
+
+#    - name: Kill existing java instances
+#      command: "pkill -f java"
+
+    - name: Start server
+      command: "nohup java -jar {{ app_jar_location }} &"
