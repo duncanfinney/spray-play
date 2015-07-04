@@ -35,5 +35,12 @@ class PersonService extends Actor with HttpService {
           s"Hello ${person.firstName} ${person.lastName}"
         }
       }
+    } ~
+    path("persons" / Segment) { personId =>
+      get {
+        complete {
+          s"You requested person ${personId}"
+        }
+      }
     }
 }
