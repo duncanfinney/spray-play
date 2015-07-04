@@ -1,0 +1,3 @@
+#!/bin/sh
+pkill -f java
+nohup java -jar {{app_jar_location}}  </dev/null &>err.log &

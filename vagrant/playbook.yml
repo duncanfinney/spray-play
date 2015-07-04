@@ -3,7 +3,8 @@
   gather_facts: yes
 
   vars:
-    app_jar_location: "/home/vagrant/spray-play-assembly-0.1.jar"
+    working_dir: "/home/vagrant"
+    app_jar_location: "{{ working_dir }}/spray-play-assembly-0.1.jar"
 
   pre_tasks:
     - name: update cache if needed
@@ -16,8 +17,8 @@
     - name: Copy app over to server
       copy: src=../target/scala-2.11/spray-play-assembly-0.1.jar dest="{{ app_jar_location }}"
 
-#    - name: Kill existing java instances
-#      command: "pkill -f java"
+    - name: Create startup script
+      template: src=templates/startup.j2  dest="{{ working_dir }}/startup.sh" mode=777
 
-    - name: Start server
-      command: "nohup java -jar {{ app_jar_location }} &"
+    - name: Start the server
+      command: "sh {{ working_dir }}/startup.sh"

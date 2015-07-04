@@ -24,8 +24,7 @@ class PersonService extends Actor with HttpService {
             Person("Rhiannon", "Finney", Some(21)),
             Person("Gwyneth", "Finney", Some(18)),
             Person("Barbara", "Finney", Some(50)),
-            Person("Angus", "Finney", Some(53)),
-            Person("Duncan", "Finney", Some(22))
+            Person("Angus", "Finney", Some(53))
           )
         }
       }
